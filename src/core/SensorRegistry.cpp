@@ -19,7 +19,7 @@ bool SensorRegistry::registerSensor(ISensor* sensor) {
 bool SensorRegistry::initializeAll() {
     bool allOk = true;
     for (uint8_t i = 0; i < _sensorCount; i++) {
-        if (!_sensors[i]->begin()) {
+        if (_sensors[i] && !_sensors[i]->begin()) {
             allOk = false;
         }
     }
@@ -29,7 +29,7 @@ bool SensorRegistry::initializeAll() {
 
 void SensorRegistry::pollAll() {
     for (uint8_t i = 0; i < _sensorCount; i++) {
-        if (_sensors[i]->isConnected()) {
+        if (_sensors[i] && _sensors[i]->isConnected()) {
             _sensors[i]->read();
         }
     }
@@ -38,7 +38,7 @@ void SensorRegistry::pollAll() {
 void SensorRegistry::buildValueMap() {
     _totalValues = 0;
     for (uint8_t s = 0; s < _sensorCount && _totalValues < MAX_DISPLAY_VALUES; s++) {
-        if (!_sensors[s]->isConnected()) continue;
+        if (!_sensors[s] || !_sensors[s]->isConnected()) continue;
         uint8_t count = _sensors[s]->getValueCount();
         for (uint8_t v = 0; v < count && _totalValues < MAX_DISPLAY_VALUES; v++) {
             _valueMap[_totalValues].sensorIndex = s;
@@ -57,6 +57,9 @@ SensorReading SensorRegistry::getReading(uint8_t globalIndex) const {
         return SensorReading::invalid("invalid");
     }
     const ValueMapping& m = _valueMap[globalIndex];
+    if (!_sensors[m.sensorIndex]) {
+        return SensorReading::invalid("invalid");
+    }
     return _sensors[m.sensorIndex]->getValue(m.valueIndex);
 }
 
@@ -65,6 +68,9 @@ const SensorValueDescriptor* SensorRegistry::getDescriptor(uint8_t globalIndex) 
         return nullptr;
     }
     const ValueMapping& m = _valueMap[globalIndex];
+    if (!_sensors[m.sensorIndex]) {
+        return nullptr;
+    }
     return _sensors[m.sensorIndex]->getValueDescriptor(m.valueIndex);
 }
 
@@ -74,5 +80,6 @@ uint8_t SensorRegistry::getSensorCount() const {
 
 bool SensorRegistry::isSensorConnected(uint8_t sensorIndex) const {
     if (sensorIndex >= _sensorCount) return false;
+    if (!_sensors[sensorIndex]) return false;
     return _sensors[sensorIndex]->isConnected();
 }
