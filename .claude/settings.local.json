@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(pio run:*)",
+      "Bash(pio device monitor:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git -C \"C:/Users/edlov/Projects/esp32c3_bme_tft\" status)",
+      "Bash(git -C \"C:/Users/edlov/Projects/esp32c3_bme_tft\" log --oneline -5)"
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true
+  }
+}

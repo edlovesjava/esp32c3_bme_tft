@@ -1,0 +1,28 @@
+
+This directory is intended for project-specific (private) libraries.
+
+PlatformIO Library Dependency Finder will look automatically for libraries
+in this folder, so you can place your custom libraries here.
+
+The source code of each library should be placed in a separate directory
+with its own `library.json` manifest file.
+
+Example:
+```
+|--lib
+|  |--Bar
+|  |  |--library.json
+|  |  |--src
+|  |     |--Bar.c
+|  |     |--Bar.h
+|  |--Foo
+|  |  |--library.json
+|  |  |--src
+|  |     |--Foo.c
+|  |     |--Foo.h
+|--src
+   |--main.cpp
+```
+
+For more information, see:
+https://docs.platformio.org/en/latest/librarymanager/ldf.html
