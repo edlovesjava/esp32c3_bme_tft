@@ -6,3 +6,5 @@ ESP32C3 Supermini
 BME280 sensor
 
 To show sensor data but structure code in a modular way to allow for different types of sensors' values to be displayed
+
+![Wiring Diagram](./esp32c3superminiwithbme280andtft160x80display.drawio.png) 
