@@ -7,14 +7,13 @@ class MockSensor : public ISensor {
 public:
     static constexpr const char* SENSOR_ID = "MOCK";
     static constexpr const char* SENSOR_NAME = "Test Sensor";
-    static constexpr uint8_t I2C_ADDR = 0x00;
     static constexpr uint8_t NUM_VALUES = 2;
 
     MockSensor();
 
     const char* getSensorId() const override { return SENSOR_ID; }
     const char* getSensorName() const override { return SENSOR_NAME; }
-    uint8_t getI2CAddress() const override { return I2C_ADDR; }
+    SensorInterface getInterfaceType() const override { return SensorInterface::VIRTUAL; }
 
     bool begin() override { _connected = true; return true; }
     bool isConnected() const override { return _connected; }

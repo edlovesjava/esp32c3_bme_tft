@@ -21,6 +21,7 @@ public:
 
     const char* getSensorId() const override { return SENSOR_ID; }
     const char* getSensorName() const override { return SENSOR_NAME; }
+    SensorInterface getInterfaceType() const override { return SensorInterface::I2C; }
     uint8_t getI2CAddress() const override { return I2C_ADDR; }
 
     bool begin() override;

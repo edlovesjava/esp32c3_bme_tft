@@ -5,6 +5,30 @@
 #include <Arduino.h>
 
 /**
+ * Sensor communication interface types.
+ */
+enum class SensorInterface : uint8_t {
+    I2C,
+    UART,
+    SPI,
+    GPIO,
+    VIRTUAL  // For mock/software sensors
+};
+
+/**
+ * UART configuration for serial sensors.
+ */
+struct UARTConfig {
+    uint32_t baudRate;
+    int8_t rxPin;
+    int8_t txPin;
+
+    static UARTConfig none() {
+        return {0, -1, -1};
+    }
+};
+
+/**
  * Describes a single value exposed by a sensor.
  */
 struct SensorValueDescriptor {
@@ -40,11 +64,16 @@ struct SensorReading {
  * Common color palette (RGB565)
  */
 namespace Colors {
-    constexpr uint16_t TEMP_ORANGE  = 0xFD20;
-    constexpr uint16_t HUMID_CYAN   = 0x07FF;
-    constexpr uint16_t PRESS_GREEN  = 0x07E0;
-    constexpr uint16_t CO2_YELLOW   = 0xFFE0;
-    constexpr uint16_t LABEL_GRAY   = 0x8410;
-    constexpr uint16_t GRAPH_BG     = 0x1082;
-    constexpr uint16_t BACKGROUND   = 0x0000;
+    constexpr uint16_t TEMP_ORANGE   = 0xFD20;
+    constexpr uint16_t HUMID_CYAN    = 0x07FF;
+    constexpr uint16_t PRESS_GREEN   = 0x07E0;
+    constexpr uint16_t CO2_YELLOW    = 0xFFE0;
+    constexpr uint16_t LIGHT_WHITE   = 0xFFFF;
+    constexpr uint16_t DIST_MAGENTA  = 0xF81F;
+    constexpr uint16_t MOTION_RED    = 0xF800;
+    constexpr uint16_t ACCEL_BLUE    = 0x001F;
+    constexpr uint16_t PRESENCE_LIME = 0x87E0;
+    constexpr uint16_t LABEL_GRAY    = 0x8410;
+    constexpr uint16_t GRAPH_BG      = 0x1082;
+    constexpr uint16_t BACKGROUND    = 0x0000;
 }
