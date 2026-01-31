@@ -29,6 +29,20 @@ struct UARTConfig {
 };
 
 /**
+ * Analog/GPIO configuration for ADC-based sensors.
+ */
+struct AnalogConfig {
+    int8_t pins[6];      // Up to 6 analog pins (-1 = unused)
+    uint8_t pinCount;    // Number of pins used
+    uint8_t resolution;  // ADC resolution in bits (default 12)
+    float vRef;          // Reference voltage (default 3.3V)
+
+    static AnalogConfig none() {
+        return {{-1, -1, -1, -1, -1, -1}, 0, 12, 3.3f};
+    }
+};
+
+/**
  * Describes a single value exposed by a sensor.
  */
 struct SensorValueDescriptor {

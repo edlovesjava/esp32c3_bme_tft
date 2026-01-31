@@ -23,6 +23,9 @@ public:
     // UART configuration (override for UART sensors)
     virtual UARTConfig getUARTConfig() const { return UARTConfig::none(); }
 
+    // Analog/GPIO configuration (override for ADC-based sensors)
+    virtual AnalogConfig getAnalogConfig() const { return AnalogConfig::none(); }
+
     // Lifecycle
     virtual bool begin() = 0;
     virtual bool isConnected() const = 0;
